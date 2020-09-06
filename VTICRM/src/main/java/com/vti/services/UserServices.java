@@ -6,18 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vti.entity.User;
-import com.vti.repository.UserRepository;
+import com.vti.repository.IUserRepository;
 
 @Service
 public class UserServices implements IUserServices{
 
 	@Autowired
-	private UserRepository repository;
+	private IUserRepository repository;
 	
 	public List<User> getAllUser(){
 		return repository.findAll();
 	}
-	
+
 	public User getUserByuserName(String userName) {
 		return repository.findByuserName(userName);
 	}

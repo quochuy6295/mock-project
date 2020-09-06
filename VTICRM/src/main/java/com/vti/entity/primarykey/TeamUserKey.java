@@ -20,27 +20,27 @@ public class TeamUserKey implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "TeamId")
-	private int TeamId;
+	private int teamId;
 
 	@Column(name = "UserId")
-	private int UserId;
+	private int userId;
 
 	public TeamUserKey() {
 	}
 
 	public int getTeamId() {
-		return TeamId;
+		return teamId;
 	}
 
 	public void setTeamId(int teamId) {
-		TeamId = teamId;
+		this.teamId = teamId;
 	}
 
 	public int getUserId() {
-		return UserId;
+		return userId;
 	}
 
 	public void setUserId(int userId) {
-		UserId = userId;
+		this.userId = userId;
 	}
 }

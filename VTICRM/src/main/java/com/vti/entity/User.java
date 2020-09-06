@@ -57,25 +57,16 @@ public class User implements Serializable {
 	@Formula(" concat(FirstName, ' ' , LastName)")
 	private String fullName;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "RoleId", nullable = false)
 	private Role role;
 
 	@OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
 	private List<Team> leaders;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	private List<TeamUser> users;
 
-	public User(int userId, String userName, String password, String firstName, String lastName, String fullName) {
-		this.userId = userId;
-		this.userName = userName;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.fullName = fullName;
-	}
-	
 	public User(String userName) {
 		this.userName = userName;
 	}
@@ -130,13 +121,26 @@ public class User implements Serializable {
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	
-	
+
 	public Role getRole() {
 		return role;
 	}
 
 	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public User(String userName, String password, String firstName, String lastName) {
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
+
+	public User(String userName, String password, String fullName, Role role) {
+		this.userName = userName;
+		this.password = password;
+		this.fullName = fullName;
 		this.role = role;
 	}
 

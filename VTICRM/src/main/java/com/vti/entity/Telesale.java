@@ -26,10 +26,10 @@ public class Telesale extends User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "Permission")
-	private String Permission;
+	private String permission;
 
 	public String getPermission() {
-		return Permission;
+		return permission;
 	}
 
 	public Telesale() {
@@ -37,7 +37,7 @@ public class Telesale extends User implements Serializable {
 	}
 
 	public void setPermission(String permission) {
-		Permission = permission;
+		this.permission = permission;
 	}
 
 }

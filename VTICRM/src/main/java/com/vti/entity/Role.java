@@ -24,7 +24,7 @@ public class Role implements Serializable {
 	@Column(name = "RoleId")
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private short RoleId;
+	private short roleId;
 
 	@Column(name = "RoleName", nullable = false, unique = true)
 	@Convert(converter = RoleNameConvert.class)
@@ -34,11 +34,11 @@ public class Role implements Serializable {
 	private List<User> users;
 
 	public short getRoleId() {
-		return RoleId;
+		return roleId;
 	}
 
 	public void setRoleId(short roleId) {
-		RoleId = roleId;
+		this.roleId = roleId;
 	}
 
 	public RoleName getName() {

@@ -1,7 +1,7 @@
 package com.vti.entity.enumerate;
 
 public enum RoleName {
-	Teamlead("Teamlead"), Telesale("Telesale");
+	TEAMLEAD("Teamlead"), TELESALE("Telesale");
 
 	private String value;
 

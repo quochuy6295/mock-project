@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.vti.entity.Team;
-import com.vti.repository.TeamRepository;
+import com.vti.repository.ITeamRepository;
 
 @Service
 public class TeamServices implements ITeamServices{
 	
 	@Autowired
-	private TeamRepository repository;
+	private ITeamRepository repository;
 	
 	public List<Team> getAllTeam(){
 		return repository.findAll();

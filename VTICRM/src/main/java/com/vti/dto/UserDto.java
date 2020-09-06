@@ -1,5 +1,7 @@
 package com.vti.dto;
 
+import com.vti.entity.User;
+
 public class UserDto {
 
 	private String userName;
@@ -7,6 +9,12 @@ public class UserDto {
 	private String fullName;
 
 	private String roleName;
+
+	private String password;
+
+	private String firstName;
+
+	private String lastName;
 
 	public UserDto() {
 	}
@@ -27,12 +35,19 @@ public class UserDto {
 		this.fullName = fullName;
 	}
 
-	public String getRoleName() {
-		return roleName;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public void setRoleName(String roleName) {
-		this.roleName = roleName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public User toEntity() {
+		return new User(userName, password, firstName, lastName);
+	}
 }

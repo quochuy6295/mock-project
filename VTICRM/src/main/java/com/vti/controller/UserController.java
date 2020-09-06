@@ -1,5 +1,6 @@
 package com.vti.controller;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.reflect.TypeToken;
-import java.lang.reflect.Type;
 import com.vti.dto.UserDto;
 import com.vti.entity.User;
 import com.vti.services.IUserServices;
@@ -33,21 +33,28 @@ public class UserController {
 	@Autowired
 	private IUserServices services;
 
+	@SuppressWarnings("serial")
 	@GetMapping()
 	public ResponseEntity<?> getAllUser() {
 		// get data
-
 		List<User> entities = services.getAllUser();
 		// convert dto
-		Type type = new TypeToken<List<UserDto>>() {}.getType();
+		Type type = new TypeToken<List<UserDto>>() {
+		}.getType();
 		List<UserDto> dtos = modelMapper.map(entities, type);
-
 		return new ResponseEntity<List<UserDto>>(dtos, HttpStatus.OK);
 	}
 
+	@SuppressWarnings("serial")
 	@GetMapping(value = "/{userName}")
 	public ResponseEntity<?> getUserByuserName(@PathVariable(name = "userName") String userName) {
-		return new ResponseEntity<User>(services.getUserByuserName(userName), HttpStatus.OK);
+		// get data
+		User entities = services.getUserByuserName(userName);
+		// convert dto
+		Type type = new TypeToken<UserDto>() {
+		}.getType();
+		UserDto dtos = modelMapper.map(entities, type);
+		return new ResponseEntity<UserDto>(dtos, HttpStatus.OK);
 	}
 
 	@PostMapping()

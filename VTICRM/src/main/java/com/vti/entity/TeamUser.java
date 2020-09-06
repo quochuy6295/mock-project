@@ -45,13 +45,13 @@ public class TeamUser {
 	@Column(name = "JoinDate")
 	@Temporal(TemporalType.TIMESTAMP)
 	@CreationTimestamp
-	private Date JoinDate;
+	private Date joinDate;
 
 	public TeamUser(TeamUserKey key, User user, Team team, Date joinDate) {
 		this.key = key;
 		this.user = user;
 		this.team = team;
-		JoinDate = joinDate;
+		this.joinDate = joinDate;
 	}
 
 	public TeamUserKey getKey() {
@@ -79,11 +79,11 @@ public class TeamUser {
 	}
 
 	public Date getJoinDate() {
-		return JoinDate;
+		return joinDate;
 	}
 
 	public void setJoinDate(Date joinDate) {
-		JoinDate = joinDate;
+		this.joinDate = joinDate;
 	}
 
 	public TeamUser() {
@@ -91,7 +91,7 @@ public class TeamUser {
 
 	@Override
 	public String toString() {
-		return "TeamUser [key=" + key.getTeamId() + ", user=" + user.getFullName() + ", team=" + team.getName() + ", JoinDate=" + JoinDate + "]";
+		return "TeamUser [key=" + key.getTeamId() + ", user=" + user.getFullName() + ", team=" + team.getName() + ", JoinDate=" + joinDate + "]";
 	}
 	
 	

@@ -11,21 +11,21 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Teamlead", catalog = "vtiCRM")
 @PrimaryKeyJoinColumn(name = "UserId")
-public class Teamlead extends User implements Serializable {
+public class TeamLead extends User implements Serializable {
 
 	@Column(name = "Permission")
-	private String Permission;
+	private String permission;
 
 	public String getPermission() {
-		return Permission;
+		return permission;
 	}
 
-	public Teamlead() {
+	public TeamLead() {
 		super();
 	}
 
 	public void setPermission(String permission) {
-		Permission = permission;
+		this.permission = permission;
 	}
 
 }

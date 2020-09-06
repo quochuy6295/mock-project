@@ -1,7 +1,9 @@
 package com.vti.controller;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.reflect.TypeToken;
+import com.vti.dto.TeamDto;
 import com.vti.entity.Team;
 import com.vti.services.ITeamServices;
 
@@ -22,28 +26,43 @@ import com.vti.services.ITeamServices;
 @RequestMapping(value = "api/v1/teams")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 public class TeamController {
-	
+
 	@Autowired
 	private ITeamServices services;
-	
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@SuppressWarnings("serial")
 	@GetMapping()
-	public ResponseEntity<?> getAllTeams(){
-		//get data
-		List<Team> entities =services.getAllTeam();
-		return new ResponseEntity<List<Team>>(entities, HttpStatus.OK);
+	public ResponseEntity<?> getAllTeams() {
+		// get data
+		List<Team> entities = services.getAllTeam();
+		// convert dto
+		Type type = new TypeToken<List<TeamDto>>() {
+		}.getType();
+		List<TeamDto> dtos = modelMapper.map(entities, type);
+		return new ResponseEntity<List<TeamDto>>(dtos, HttpStatus.OK);
 	}
-	
+
+	@SuppressWarnings("serial")
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<?> getTeamById(@PathVariable(name = "id")int id){
-		return new ResponseEntity<Team>(services.getTeamById(id), HttpStatus.OK);
+	public ResponseEntity<?> getTeamById(@PathVariable(name = "id") int id) {
+		// get data
+		Team entities = services.getTeamById(id);
+		// convert dto
+		Type type = new TypeToken<TeamDto>() {
+		}.getType();
+		TeamDto dtos = modelMapper.map(entities, type);
+		return new ResponseEntity<TeamDto>(dtos, HttpStatus.OK);
 	}
-	
+
 	@PostMapping()
-	public ResponseEntity<?> createTeam(@RequestBody Team team){
+	public ResponseEntity<?> createTeam(@RequestBody Team team) {
 		services.createTeam(team);
 		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<?> updateTeam(@PathVariable(name = "id") int id, @RequestBody Team team) {
 		team.setId(id);
