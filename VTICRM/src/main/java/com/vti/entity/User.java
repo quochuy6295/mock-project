@@ -3,7 +3,6 @@ package com.vti.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 import org.hibernate.annotations.Formula;
 
@@ -38,20 +38,23 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "UserId")
 	private int userId;
 
 	@Column(name = "UserName", length = 50, nullable = false, unique = true)
+	@NotBlank(message = "userName is not null")
 	private String userName;
 
 	@Column(name = "`Password`", length = 50, nullable = false)
+	@NotBlank(message = "Password is not null")
 	private String password;
 
 	@Column(name = "FirstName", length = 50, nullable = false)
+	@NotBlank(message = "FirstName is not null")
 	private String firstName;
 
 	@Column(name = "LastName", length = 50, nullable = false)
+	@NotBlank(message = "LastName is not null")
 	private String lastName;
 
 	@Formula(" concat(FirstName, ' ' , LastName)")
@@ -64,7 +67,7 @@ public class User implements Serializable {
 	@OneToMany(mappedBy = "leader", fetch = FetchType.LAZY)
 	private List<Team> leaders;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private List<TeamUser> users;
 
 	public User(String userName) {
@@ -142,6 +145,13 @@ public class User implements Serializable {
 		this.password = password;
 		this.fullName = fullName;
 		this.role = role;
+	}
+
+	public User(String userName, String password, String firstName, String lastName, int roleId) {
+		this.userName = userName;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 	}
 
 	@Override

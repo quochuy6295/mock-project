@@ -93,12 +93,11 @@ public class Team implements Serializable {
 	public Team() {
 	}
 
-	public Team(int id, String name, User leader, Date createDate, List<TeamUser> users) {
+	public Team(int id, String name, User leader, Date createDate) {
 		this.id = id;
 		this.name = name;
 		this.leader = leader;
 		this.createDate = createDate;
-		this.users = users;
 	}
 
 	@Override

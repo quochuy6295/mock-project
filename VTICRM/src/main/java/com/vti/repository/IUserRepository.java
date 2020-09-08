@@ -7,7 +7,7 @@ import com.vti.entity.User;
 
 @Repository
 public interface IUserRepository extends JpaRepository<User, Integer> {
-
+	
 	public User findByuserName(String userName);
 
 	public boolean existsByuserName(String userName);

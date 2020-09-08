@@ -47,6 +47,18 @@ public class UserDto {
 		this.lastName = lastName;
 	}
 
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
 	public User toEntity() {
 		return new User(userName, password, firstName, lastName);
 	}

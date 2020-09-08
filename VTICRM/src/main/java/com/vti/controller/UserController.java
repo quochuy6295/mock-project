@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.common.reflect.TypeToken;
@@ -33,12 +34,23 @@ public class UserController {
 	@Autowired
 	private IUserServices services;
 
-	@SuppressWarnings("serial")
+//	public UserDto convertToDto(User user) {
+//		UserDto userDto = modelMapper.map(user, UserDto.class);
+//		return userDto;
+//	}
+//
+//	public User converToEntity(UserDto userDto) {
+//		User user = modelMapper.map(userDto, User.class);
+//		return user;
+//	}
+
 	@GetMapping()
-	public ResponseEntity<?> getAllUser() {
+	public ResponseEntity<?> getAllUser(@RequestParam(defaultValue = "0") Integer pageNo,
+			@RequestParam(defaultValue = "2") Integer pageSize, @RequestParam(defaultValue = "userId") String sortBy) {
 		// get data
-		List<User> entities = services.getAllUser();
+		List<User> entities = services.getAllUser(pageSize, pageSize, sortBy);
 		// convert dto
+		@SuppressWarnings("serial")
 		Type type = new TypeToken<List<UserDto>>() {
 		}.getType();
 		List<UserDto> dtos = modelMapper.map(entities, type);
@@ -57,10 +69,47 @@ public class UserController {
 		return new ResponseEntity<UserDto>(dtos, HttpStatus.OK);
 	}
 
+//	@PostMapping()
+//	public ResponseEntity<?> createUser(@Valid @RequestBody UserDto dtos) {
+//		services.save(dtos);
+//		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
+//	}
+
+//	@PostMapping()
+//	@ResponseStatus(HttpStatus.CREATED)
+//	public UserDto createUser(@RequestBody UserDto userdto) {
+//		User user = converToEntity(userdto);
+//		User usercreated = services.createUser(user);
+//		return convertToDto(usercreated);
+//	}
+
+//	@PostMapping()
+//	public ResponseEntity<?> createUser(@RequestBody User users) {
+//		services.createUser(users);
+//		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
+//	}
+
+//	@PostMapping
+//	public ResponseEntity<?> addUser(@RequestBody UserDtoForAdd dtos){
+//		services.save(dtos);
+//		return new ResponseEntity<String>("success", HttpStatus.OK);
+//	}
+//	
+//	@PostMapping(value = "/{RoleName}/role")
+//	public ResponseEntity<?> AddRoleToUser(@PathVariable(name = "RoleName") RoleName RoleName,
+//			@RequestBody  RoleDTO RoleDTO) throws ParseException {
+//		RoleDTO role  =new RoleDTO(RoleName);
+//		User user= services.getCarById(carPK);
+//		Accessory accessory=dtoAccessoryForAddAndUpdate.toEntity();
+//		accessory.setCar(car);
+//		carService.addOrUpdateCarAccessories(accessory);
+//		return new ResponseEntity<String>("save car's accessory successfully!", HttpStatus.OK);
+//	}
+
 	@PostMapping()
-	public ResponseEntity<?> createUser(@RequestBody User user) {
-		services.createUser(user);
-		return new ResponseEntity<String>("Create successfully!", HttpStatus.CREATED);
+	public ResponseEntity<User> saveUser(@RequestBody User user) {
+		User user1 = services.addUser(user);
+		return new ResponseEntity<>(user1, HttpStatus.OK);
 	}
 
 	@PutMapping(value = "/{id}")

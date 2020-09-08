@@ -48,10 +48,23 @@ public class Role implements Serializable {
 	public void setName(RoleName roleName) {
 		name = roleName;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Role [RoleName=" + name + "]";
+	}
+
+	public Role(RoleName name) {
+		this.name = name;
+	}
+
+	public Role(short roleId, RoleName name, List<User> users) {
+		this.roleId = roleId;
+		this.name = name;
+		this.users = users;
+	}
+
+	public Role() {
 	}
 
 }
