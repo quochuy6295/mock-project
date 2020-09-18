@@ -1,0 +1,42 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>User List</h2>
+            </div>
+            <div class=" col-md-4 offset-md-4">
+                <button class="btn btn-success" (click)="newUser()" style="margin-right: 20px">Create New
+          User</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Role</th>
+                    <th>Team Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users | async">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.password}}</td>
+                    <td>{{user.role}}</td>
+                    <td>{{user.team.name}}</td>
+                    <td>
+                        <button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
+                        <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="panel panel-primary">
+    <div class=" col-md-4 offset-md-4">
+        <button class="btn btn-success" (click)="newStudent()" style="margin-right: 20px">Create New
+User</button>
+    </div>
+    <div class="panel-heading ">
+        <h2>Student List</h2>
+    </div>
+    <div class="panel-body ">
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>TT</th>
+                    <th>Full Name</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Target</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let student of students | async ">
+                    <td>{{student.id}}</td>
+                    <td>{{student.full_name}}</td>
+                    <td>{{student.gender}}</td>
+                    <td>{{student.email}}</td>
+                    <td>{{student.phone_number}}</td>
+                    <td>{{student.target}}</td>
+                    <td><button (click)="deleteStudent(student.id) " class="btn btn-danger ">Delete</button>
+                        <button (click)="studentDetails(student.id) " class="btn btn-info " style="margin-left: 10px ">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

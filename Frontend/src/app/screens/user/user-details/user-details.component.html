@@ -1,0 +1,30 @@
+<h2>User Details</h2>
+
+<hr />
+<div *ngIf="user">
+    <div>
+        <label><b>ID: </b></label> {{user.id}}
+    </div>
+    <div>
+        <label><b>Name: </b></label> {{user.name}}
+    </div>
+    <div>
+        <label><b>Email: </b></label> {{user.email}}
+    </div>
+    <div>
+        <label><b>Password: </b></label> {{user.password}}
+    </div>
+    <div>
+        <label><b>Role: </b></label> {{user.role}}
+    </div>
+    <div>
+        <label><b>Team: </b></label> {{user.team.name}}
+    </div>
+</div>
+
+<br>
+<br>
+<div class="row">
+    <button (click)="list()" class="btn btn-warning">Back to User List</button>
+    <button (click)="addUserTeam()" class="btn btn-info" style="margin-left: 10px">Add to Team</button>
+</div>

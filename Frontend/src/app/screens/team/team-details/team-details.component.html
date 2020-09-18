@@ -1,0 +1,16 @@
+<h2>Team Details</h2>
+
+<hr />
+<div *ngIf="team">
+
+    <div>
+        <label><b>Name: </b></label> {{team.name}}
+    </div>
+    <div>
+        <label><b>Team Lead ID: </b></label> {{team.team_lead_id}}
+    </div>
+</div>
+
+<br>
+<br>
+<button (click)="list()" class="btn btn-primary">Back to Team List</button><br>
