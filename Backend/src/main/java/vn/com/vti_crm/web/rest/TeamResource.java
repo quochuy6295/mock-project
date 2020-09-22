@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,11 +29,11 @@ public class TeamResource {
 	@Autowired
 	TeamService teamService;
 
-	@PostMapping(value = "/teams")
+	@RequestMapping(value = "/teams", method = RequestMethod.POST)
 	public ResponseEntity<?> createTeam(@Valid @RequestBody Team team) throws URISyntaxException {
 		log.debug("REST request to save Team : {}", team);
-		teamService.createTeam(team);
-		return new ResponseEntity<String>("Create Team successfull!", HttpStatus.CREATED);
+		team = teamService.createTeam(team);
+		return new ResponseEntity<Team>(team, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/teams", method = RequestMethod.GET)

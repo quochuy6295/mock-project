@@ -17,17 +17,17 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	TeamRepository teamRepository;
-	
+
 	@Autowired
 	UserService userService;
 
 	@Override
 	public User createUser(User user) {
 		user = userRepository.save(user);
-		userService.updateUserTeam(user.getTeam().getId(), user.getId());
+//		userService.updateUserTeam(user.getTeam().getId(), user.getId());
 		return user;
 	}
 
@@ -35,48 +35,45 @@ public class UserServiceImpl implements UserService {
 	public Optional<User> getUserById(int id) {
 		return userRepository.findUserById(id);
 	}
-	
+
 	@Override
 	public Optional<User> updateUserTeam(int teamId, int userId) {
 		Optional<User> user = userRepository.findUserById(userId);
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			Optional<Team> team = teamRepository.findTeamById(teamId);
-			if(team.isPresent()) {
+			if (team.isPresent()) {
 				user.get().setTeam(team.get());
 				userRepository.save(user.get());
 			}
 		}
-		
+
 		return user;
 	}
 
 	@Override
 	public Optional<User> removeUserTeam(int teamId, int userId) {
 		Optional<User> user = userRepository.findUserById(userId);
-		if(user.isPresent()) {
+		if (user.isPresent()) {
 			Optional<Team> team = teamRepository.findTeamById(teamId);
-			if(team.isPresent()) {
+			if (team.isPresent()) {
 				user.get().setTeam(null);
 			}
 		}
-		
+
 		return user;
 
 	}
 
 	@Override
 	public List<User> getAllUsers() {
-		return  userRepository.findAll();
+		return userRepository.findAll();
 
-		
 	}
-		
-	
 
 	@Override
 	public void deleteUser(User user) {
 		userRepository.save(user);
-		
+
 	}
 
 	@Override

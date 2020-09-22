@@ -22,15 +22,15 @@ export class ListTeamComponent implements OnInit {
     this.teams = this.teamService.getTeamList();
   }
 
-  // deleteTeam(id: number) {
-  //   this.teamService.deleteTeam(id).subscribe(
-  //     (data) => {
-  //       console.log(data);
-  //       this.reloadData();
-  //     },
-  //     (error) => console.log(error)
-  //   );
-  // }
+  deleteTeam(id: number) {
+    this.teamService.deleteTeam(id).subscribe(
+      (data) => {
+        console.log(data);
+        this.reloadData();
+      },
+      (error) => console.log(error)
+    );
+  }
 
   teamDetails(id: number) {
     this.router.navigate(['details', id]);

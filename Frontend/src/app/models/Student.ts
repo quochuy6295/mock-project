@@ -2,38 +2,38 @@ export interface IStudent {
   id?: number;
   fullName?: string;
   gender?: string;
-  phone_number?: string;
+  phoneNumber?: string;
   email?: string;
   birthday?: string;
   school?: string;
   address?: string;
-  social_info?: string;
+  socialInfo?: string;
   target?: string;
   status?: string;
-  history_transaction?: string;
+  historyTransaction?: string;
   source?: string;
-  // team_id?: number;
-  // user_id?: number;
-  // created_date?: string;
+  teamId?: number;
+  userId?: number;
+  createdDate?: string;
 }
 
 export class Student implements IStudent {
   constructor(
     public id?: number,
-    public full_name?: string,
+    public fullName?: string,
     public gender?: string,
-    public phone_number?: string,
+    public phoneNumber?: string,
     public email?: string,
     public birthday?: string,
     public school?: string,
     public address?: string,
-    public social_info?: string,
+    public socialInfo?: string,
     public target?: string,
     public status?: string,
-    public history_transaction?: string,
+    public historyTransaction?: string,
     public source?: string,
-    // public team_id?: number,
-    // public user_id?: number,
-    // public created_date?: string
+    public teamId?: number,
+    public userId?: number,
+    public createdDate?: string
   ) {}
 }

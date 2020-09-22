@@ -1,13 +1,19 @@
 <div class="panel panel-primary">
-    <div class=" col-md-4 offset-md-4">
-        <button class="btn btn-success" (click)="newStudent()" style="margin-right: 20px">Create New
-User</button>
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Student List</h2>
+            </div>
+            <div class=" col-md-4 offset-md-4">
+                <button class="btn btn-success" (click)="importFileStudent()" style="margin-right: 20px">Import File</button>
+            </div>
+            <div>
+                <input type=”text” class="form-control" placeholder="Search here" [(ngModel)]="searchTerm">
+            </div>
+        </div>
     </div>
-    <div class="panel-heading ">
-        <h2>Student List</h2>
-    </div>
-    <div class="panel-body ">
-        <table class="table table-striped ">
+    <div class="panel-body">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>TT</th>
@@ -19,15 +25,15 @@ User</button>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let student of students | async ">
+                <tr *ngFor="let student of (students | async | studentsFilter:searchTerm)">
                     <td>{{student.id}}</td>
-                    <td>{{student.full_name}}</td>
+                    <td>{{student.fullName}}</td>
                     <td>{{student.gender}}</td>
                     <td>{{student.email}}</td>
-                    <td>{{student.phone_number}}</td>
+                    <td>{{student.phoneNumber}}</td>
                     <td>{{student.target}}</td>
-                    <td><button (click)="deleteStudent(student.id) " class="btn btn-danger ">Delete</button>
-                        <button (click)="studentDetails(student.id) " class="btn btn-info " style="margin-left: 10px ">Details</button>
+                    <td><button (click)="deleteStudent(student.id)" class="btn btn-danger">Delete</button>
+                        <button (click)="studentDetails(student.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
                     </td>
                 </tr>
             </tbody>

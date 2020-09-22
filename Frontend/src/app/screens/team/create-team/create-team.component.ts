@@ -2,7 +2,7 @@ import { TeamService } from './../../../service/team/team.service';
 import { Team } from './../../../models/Team';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-create-team',
   templateUrl: './create-team.component.html',
@@ -15,6 +15,14 @@ export class CreateTeamComponent implements OnInit {
   constructor(private teamService: TeamService, private router: Router) {}
 
   ngOnInit(): void {}
+  contact = {
+    "contactName": "Tiep Phan",
+    "email": "abc@deg.com",
+    "facebook": "facebook.com",
+    "twitter": "twitter.com",
+    "website": "tiepphan.com",
+    "tel": "1234-5678-90"
+  }
 
   newTeam(): void {
     this.submitted = false;
@@ -25,7 +33,7 @@ export class CreateTeamComponent implements OnInit {
     this.teamService.createTeam(this.team).subscribe(
       (data) => {
         console.log(data);
-        this.team = new Team();
+        // this.team = new Team();
         this.gotoList();
       },
       (error) => console.log(error)
@@ -35,7 +43,13 @@ export class CreateTeamComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
-    this.gotoList();
+    swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Create Team success',
+      showConfirmButton: false,
+      timer: 1500
+    })
   }
 
   gotoList() {

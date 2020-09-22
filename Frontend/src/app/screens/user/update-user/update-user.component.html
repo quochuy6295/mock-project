@@ -21,6 +21,16 @@
             <input type="text" class="form-control" id="role" required [(ngModel)]="user.role" name="role">
         </div>
 
+        <div class="form-group">
+            <label for="name">Team Name</label>
+            <select class="form-control" id="field_team" name="team">
+        <option ([ngValue])="team.name" *ngFor="let team of teams">
+          {{ team.name }}
+        </option>
+      </select>
+            <!-- <input type="text" class="form-control" id="team.name" required [(ngModel)]="user.team.name" name="team.name"> -->
+        </div>
+
         <button type="submit" class="btn btn-success">Submit</button>
     </form>
 

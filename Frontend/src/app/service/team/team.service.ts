@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class TeamService {
+  [x: string]: any;
   private baseTeamsUrl = 'http://localhost:8080/admin/teams';
 
   constructor(private http: HttpClient) {}

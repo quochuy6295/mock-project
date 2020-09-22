@@ -1,23 +1,22 @@
-
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {catchError, tap, map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class StudentService {
-  [x: string]: any;
-  private baseUrl = 'http://localhost:8080/admin/student';
-  // private bastUrl1 = 'http://localhost:8080/admin/upload';
+  private baseUrl = 'http://localhost:8080/admin/students';
+
   constructor(private http: HttpClient) {}
 
-  // createStudent(Student: Object): Observable<Object> {
-  //   return this.http.post(`${this.baseUrl}`, Student);
-  // }
+  createStudent(Student: Object): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`, Student);
+  }
 
-  // getUser(id: number): Observable<any> {
-  //   return this.http.get(`${this.baseUrl}`);
-  // }
+  getUser(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
+  }
 
   getStudentList(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
@@ -30,18 +29,18 @@ export class StudentService {
   deleteStudent(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
-  // private baseUrl = 'http://localhost:8080';
 
-  // upload(file: File): Observable<HttpEvent<any>> {
-  //   const formData: FormData = new FormData();
+  private handleError(err: HttpErrorResponse) {
 
-  //   formData.append('file', file);
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
 
-  //   const req = new HttpRequest('POST', `${this.baseUrl}/upload`, formData, {
-  //     reportProgress: true,
-  //     responseType: 'json'
-  //   });
+        errorMessage = `An error occurred: ${err.error.message}`;
+    } else {
 
-  //   return this.http.request(req);
-  // }
+        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+}
 }

@@ -1,22 +1,36 @@
-fieldset {
-    overflow: hidden
+article {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
 }
 
-.some-class {
-    float: left;
-    clear: none;
+h1,
+h2 {
+    font-weight: bold;
+    margin: 10px 0 30px;
 }
 
-label {
-    float: left;
-    clear: none;
-    display: block;
-    padding: 0px 1em 0px 8px;
+h1 {
+    font-size: 32px;
+    color: #08457E;
 }
 
-input[type=radio],
-input.radio {
-    float: left;
-    clear: none;
-    margin: 2px 0 0 2px;
+h1 {
+    font-size: 24px;
+}
+
+span {
+    font-weight: bold;
+}
+
+p b {
+    color: #800000;
+}
+
+select {
+    margin: 10px 0 25px;
+}
+
+div i {
+    margin-left: 10px;
 }

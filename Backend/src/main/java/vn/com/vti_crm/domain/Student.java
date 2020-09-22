@@ -1,154 +1,255 @@
 package vn.com.vti_crm.domain;
 
+import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import vn.com.vti_crm.domain.enumerate.Gender;
+import vn.com.vti_crm.domain.enumerate.Source;
+import vn.com.vti_crm.domain.enumerate.Status;
+import vn.com.vti_crm.domain.enumerate.Target;
+
+/**
+ * The persistent class for the student database table.
+ * 
+ */
 @Entity
 @Table(name = "student")
-public class Student {
+@NamedQuery(name = "Student.findAll", query = "SELECT s FROM Student s")
+public class Student implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	@Column(name = "id", unique = true, nullable = false)
+	private long id;
 
-	@Column(name = "fullName", nullable = false, length = 30)
+	@Column(name = "full_name", nullable = false, length = 30)
 	private String fullName;
 
-	@Column(name = "gender", length = 30, nullable = false) // chua mapping duoc enum
-	private String gender;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "gender", nullable = false)
+	private Gender gender;
 
 	@Column(name = "phone_number", nullable = false, length = 15, unique = true)
-	private String phonenumber;
+	private String phoneNumber;
 
-	@Column(name = "email", nullable = false, length = 50)
+	@Column(name = "email", nullable = false, length = 50, unique = true)
 	private String email;
 
-	@Column(name = "birthday", length = 50)
-//	@Temporal(TemporalType.TIMESTAMP)
-//	@CreationTimestamp
-	private String birthday; // chua mapping duoc birthday
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	@Column(name = "birthday", nullable = true)
+	private Date birthday;
 
-	@Column(name = "school", length = 50)
+	@Column(name = "school", nullable = true, length = 50)
 	private String school;
 
-	@Column(name = "address", length = 50)
+	@Column(name = "address", nullable = true, length = 50)
 	private String address;
 
-	@Column(name = "social_info", length = 50)
-	private String social_info;
+	@Column(name = "social_info", nullable = true, length = 50)
+	private String socialInfo;
 
-	@Column(name = "target", length = 20)
-	private String target;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "target", nullable = false)
+	private Target target;
 
-	@Column(name = "status", length = 20)
-	private String status;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "status", nullable = false, length = 20)
+	private Status status;
 
-	@Column(name = "history_transaction", length = 100)
-	private String historyTrasacition;
+	@Column(name = "history_transaction", nullable = true, length = 100)
+	private String historyTransaction;
 
-	@Column(name = "source", length = 20) // chua mapping duoc enum
-	private String source;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "source", nullable = false)
+	private Source source;
 
-	@ManyToOne
+	@JsonIgnore
+	// bi-directional many-to-one association to Team
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "team_id")
 	private Team team;
 
-	@ManyToOne
+	@JsonIgnore
+	// bi-directional many-to-one association to User
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private User user;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
+	@Column(name = "created_date")
+	private Date createdDate;
 
 	public Student() {
 	}
 
-	public long getId() {
-		return id;
+	public Student(String fullName, Gender gender, String phoneNumber, String email, Date birthday, String school,
+			String address, String socialInfo, Target target, Status status, String historyTransaction, Source source) {
+		super();
+
+		this.fullName = fullName;
+		this.gender = gender;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.birthday = birthday;
+		this.school = school;
+		this.address = address;
+		this.socialInfo = socialInfo;
+		this.target = target;
+		this.status = status;
+		this.historyTransaction = historyTransaction;
+		this.source = source;
+	}
+	
+	public Student(String fullName, Gender gender, String phoneNumber, String email, Date birthday, String school,
+			String address, String socialInfo, Target target, Status status, String historyTransaction, Source source, Date createdDate) {
+		super();
+
+		this.fullName = fullName;
+		this.gender = gender;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.birthday = birthday;
+		this.school = school;
+		this.address = address;
+		this.socialInfo = socialInfo;
+		this.target = target;
+		this.status = status;
+		this.historyTransaction = historyTransaction;
+		this.source = source;
+		this.createdDate = createdDate;
 	}
 
-	public void setId(int id) {
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public String getSource() {
-		return source;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
 
-	public void setSource(String source) {
-		this.source = source;
-	}
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getFullName() {
-		return fullName;
-	}
-
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getSchool() {
-		return school;
-	}
-
-	public void setSchool(String school) {
-		this.school = school;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getAddress() {
-		return address;
+		return this.address;
 	}
 
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public String getSocial_info() {
-		return social_info;
+	public Date getBirthday() {
+		return this.birthday;
 	}
 
-	public void setSocial_info(String social_info) {
-		this.social_info = social_info;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getSocialInfo() {
+		return this.socialInfo;
+	}
+
+	public void setSocialInfo(String socialInfo) {
+		this.socialInfo = socialInfo;
+	}
+
+	public String getFullName() {
+		return this.fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+	public Gender getGender() {
+		return this.gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
+
+	public String getHistoryTransaction() {
+		return this.historyTransaction;
+	}
+
+	public void setHistoryTransaction(String historyTransaction) {
+		this.historyTransaction = historyTransaction;
+	}
+
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	public void setPhonenumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getSchool() {
+		return this.school;
+	}
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+	public Source getSource() {
+		return this.source;
+	}
+
+	public void setSource(Source source) {
+		this.source = source;
+	}
+
+	public Status getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Target getTarget() {
+		return this.target;
+	}
+
+	public void setTarget(Target target) {
+		this.target = target;
 	}
 
 	public Team getTeam() {
-		return team;
+		return this.team;
 	}
 
 	public void setTeam(Team team) {
@@ -156,53 +257,11 @@ public class Student {
 	}
 
 	public User getUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public String getTarget() {
-		return target;
-	}
-
-	public void setTarget(String target) {
-		this.target = target;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public String getHistoryTrasacition() {
-		return historyTrasacition;
-	}
-
-	public void setHistoryTrasacition(String historyTrasacition) {
-		this.historyTrasacition = historyTrasacition;
-	}
-
-	public Student(String fullName, String gender, String phonenumber, String email, String birthday, String school,
-			String address, String social_info, String target, String status, String historyTrasacition,
-			String source) {
-		this.fullName = fullName;
-		this.gender = gender;
-		this.phonenumber = phonenumber;
-		this.email = email;
-		this.birthday = birthday;
-		this.school = school;
-		this.address = address;
-		this.social_info = social_info;
-		this.target = target;
-		this.status = status;
-		this.historyTrasacition = historyTrasacition;
-		this.source = source;
-
 	}
 
 }

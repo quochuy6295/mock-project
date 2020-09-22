@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +34,7 @@ public class UserResource {
 	@Autowired
 	UserService userService;
 
-	@PostMapping(value = "/users")
+	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public ResponseEntity<?> createUser(@Valid @RequestBody User user) throws URISyntaxException {
 		log.debug("REST request to save User : {}", user);
 		user = userService.createUser(user);
@@ -57,7 +54,7 @@ public class UserResource {
 		return new ResponseEntity<Optional<User>>(user, HttpStatus.OK);
 	}
 
-	@PutMapping(value = "/users/{userId}")
+	@RequestMapping(value = "/users/{userId}", method = RequestMethod.PUT)
 	public ResponseEntity<?> updateUser(@PathVariable(value = "userId") int userId,
 			@Valid @RequestBody User userDetails) throws ResourceNotFoundException {
 		User user = userService.getUserById(userId)
@@ -67,11 +64,12 @@ public class UserResource {
 		user.setName(userDetails.getName());
 		user.setPassword(userDetails.getPassword());
 		user.setRole(userDetails.getRole());
+		user.setTeam(userDetails.getTeam());
 		final User updatedUser = userService.updateUser(user);
 		return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/users/{userId}")
+	@RequestMapping(value = "/users/{userId}", method = RequestMethod.DELETE)
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "userId") int userId)
 			throws ResourceNotFoundException {
 		User user = userService.getUserById(userId)

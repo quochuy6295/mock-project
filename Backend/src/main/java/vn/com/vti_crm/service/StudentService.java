@@ -1,6 +1,6 @@
 package vn.com.vti_crm.service;
 
-import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -12,17 +12,8 @@ import vn.com.vti_crm.domain.Student;
 @Service
 public interface StudentService {
 
-	public void save(MultipartFile file);
+	public List<Student> getAllStudent();
 
-	public ByteArrayInputStream load();
+	public void save(MultipartFile file) throws ParseException, IOException;
 
-	public List<Student> getAllStudents();
-
-	public void createStudent(Student student);
-
-	public void deleteStudent(int id);
-
-	public List<Student> getAllStudents(String search) throws ParseException;
-
-	public void updateStudent(Student student);
 }

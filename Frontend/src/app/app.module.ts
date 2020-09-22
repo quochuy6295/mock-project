@@ -19,9 +19,8 @@ import { StudentDetailsComponent } from './screens/student/student-details/stude
 import { UpdateUserComponent } from './screens/user/update-user/update-user.component';
 import { CreateStudentComponent } from './screens/student/create-student/create-student.component';
 import { UpdateTeamComponent } from './screens/team/update-team/update-team.component';
-import { ErrorComponent } from './error/error/error.component';
-import { NgxCsvParserModule } from 'ngx-csv-parser';
-import { StudentService } from './service/student/student.service';
+import { EmailValidatorDirective } from './screens/user/email-validator.directive';
+import { StudentFilterPipe } from '../app/screens/student/list-student/student-fitler.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +39,8 @@ import { StudentService } from './service/student/student.service';
     UpdateUserComponent,
     CreateStudentComponent,
     UpdateTeamComponent,
-    ErrorComponent,
+    EmailValidatorDirective,
+    StudentFilterPipe
 
   ],
   imports: [
@@ -49,10 +49,8 @@ import { StudentService } from './service/student/student.service';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgxCsvParserModule,
-    ReactiveFormsModule,
   ],
-  providers: [StudentService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

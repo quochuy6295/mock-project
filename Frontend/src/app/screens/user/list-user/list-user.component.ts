@@ -22,7 +22,8 @@ export class ListUserComponent implements OnInit {
     this.users = this.userService.getUsersList();
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: number): void {
+    if (!confirm('Do you want to delete this user?')) return;
     this.userService.deleteUser(id).subscribe(
       (data) => {
         console.log(data);
@@ -36,12 +37,11 @@ export class ListUserComponent implements OnInit {
     this.router.navigate(['users/details', id]);
   }
 
-  // userDetails(): void {
-  //   this.router.navigate(['users/details']);
-  // }
+  updateUser(id: number) {
+    this.router.navigate(['users/update', id]);
+  }
 
   newUser(): void {
     this.router.navigate(['users/create']);
-    this.reloadData();
   }
 }

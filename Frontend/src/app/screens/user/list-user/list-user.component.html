@@ -5,8 +5,7 @@
                 <h2>User List</h2>
             </div>
             <div class=" col-md-4 offset-md-4">
-                <button class="btn btn-success" (click)="newUser()" style="margin-right: 20px">Create New
-          User</button>
+                <button class="btn btn-success" (click)="newUser()" style="margin-right: 20px">Create New User</button>
             </div>
         </div>
     </div>
@@ -15,7 +14,7 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>TT</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Password</th>
@@ -30,10 +29,11 @@
                     <td>{{user.email}}</td>
                     <td>{{user.password}}</td>
                     <td>{{user.role}}</td>
-                    <td>{{user.team.name}}</td>
+                    <td><span *ngIf="user.team">{{user.team.name}}</span></td>
                     <td>
                         <button (click)="deleteUser(user.id)" class="btn btn-danger">Delete</button>
-                        <button (click)="userDetails(user.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+                        <button (click)="userDetails(user.id)" class="btn btn-primary" style="margin-left: 10px">Details</button>
+                        <button (click)="updateUser(user.id)" class="btn btn-info" style="margin-left: 10px">Update</button>
                     </td>
                 </tr>
             </tbody>
