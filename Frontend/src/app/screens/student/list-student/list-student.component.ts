@@ -3,6 +3,7 @@ import { Student } from './../../../models/Student';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { HttpEvent, HttpRequest } from '@angular/common/http';
 
 @Component({
   selector: 'app-list-student',
@@ -12,8 +13,10 @@ import { Observable } from 'rxjs';
 export class ListStudentComponent implements OnInit {
   students: Observable<Student[]>;
 
+  uploadFile: File;
+
   constructor(private studentService: StudentService, private router: Router) {}
-  searchTerm: string;
+
   ngOnInit() {
     this.reloadData();
   }
@@ -36,8 +39,17 @@ export class ListStudentComponent implements OnInit {
     this.router.navigate(['details', id]);
   }
 
-  importFileStudent() {
-    this.studentService.getStudentList();
-    this.reloadData();
+  selectFile(event) {
+    this.uploadFile = event.target.files[0];
+  }
+
+  upload(): void {
+    const formData: FormData = new FormData();
+
+    formData.append('file', this.uploadFile);
+
+    this.studentService
+      .importCSVFile(formData)
+      .subscribe(() => this.reloadData());
   }
 }

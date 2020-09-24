@@ -2,7 +2,9 @@ import { TeamService } from './../../../service/team/team.service';
 import { Team } from './../../../models/Team';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import swal from 'sweetalert2';
+import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/service/user/user.service';
+
 @Component({
   selector: 'app-create-team',
   templateUrl: './create-team.component.html',
@@ -11,17 +13,18 @@ import swal from 'sweetalert2';
 export class CreateTeamComponent implements OnInit {
   team: Team = new Team();
   submitted = false;
+  teamLeads: User[];
 
-  constructor(private teamService: TeamService, private router: Router) {}
+  constructor(
+    private teamService: TeamService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
-  ngOnInit(): void {}
-  contact = {
-    "contactName": "Tiep Phan",
-    "email": "abc@deg.com",
-    "facebook": "facebook.com",
-    "twitter": "twitter.com",
-    "website": "tiepphan.com",
-    "tel": "1234-5678-90"
+  ngOnInit(): void {
+    this.userService
+      .getUsersList()
+      .subscribe((users) => (this.teamLeads = users));
   }
 
   newTeam(): void {
@@ -43,13 +46,6 @@ export class CreateTeamComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
-    swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Create Team success',
-      showConfirmButton: false,
-      timer: 1500
-    })
   }
 
   gotoList() {

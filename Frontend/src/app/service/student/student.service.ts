@@ -1,7 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable, throwError} from 'rxjs';
-import {catchError, tap, map} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,17 +30,7 @@ export class StudentService {
     return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
   }
 
-  private handleError(err: HttpErrorResponse) {
-
-    let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-
-        errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-
-        errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-    console.error(errorMessage);
-    return throwError(errorMessage);
-}
+  importCSVFile(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/upload`, data);
+  }
 }
