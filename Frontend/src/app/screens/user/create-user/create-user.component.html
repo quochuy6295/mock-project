@@ -1,42 +1,26 @@
 <h3>Create User</h3>
 <div [hidden]="submitted" style="width: 400px;">
 
-    <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()">
 
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" #name=ngModel required [(ngModel)]="user.name" name="name">
-        </div>
-        <div class="col alert alert-danger" role="alert" *ngIf="name.touched && name.invalid">
-            Name is required!
+            <input type="text" class="form-control" id="name" required [(ngModel)]="user.name" name="name">
         </div>
 
         <div class="form-group">
             <label for="email">Email </label>
-            <input appEmailValidator type="text" class="form-control" id="email" #email=ngModel required [(ngModel)]="user.email" name="email">
-            <div class="col alert alert-danger" role="alert" *ngIf="email.touched && email.invalid">
-                Email is not valid!
-            </div>
+            <input type="text" class="form-control" id="email" required [(ngModel)]="user.email" name="email">
         </div>
-        <!-- email?.errors?.appEmailValidator -->
 
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="text" class="form-control" id="password" #password=ngModel required [(ngModel)]="user.password" name="password">
-        </div>
-        <div class="col alert alert-danger" role="alert" *ngIf="password?.touched && password.invalid">
-            Password is required!
+            <input type="text" class="form-control" id="password" required [(ngModel)]="user.password" name="password">
         </div>
 
         <div class="form-group">
             <label for="role">Role</label>
-            <select class="form-control" id="role" #role=ngModel required [(ngModel)]="user.role" name="role">
-          <option value="TV">TV</option>
-          <option value="TL">TL</option>
-        </select>
-        </div>
-        <div class="col alert alert-danger" role="alert" *ngIf="role.touched && role.invalid">
-            Role is required!
+            <input type="text" class="form-control" id="role" required [(ngModel)]="user.role" name="role">
         </div>
 
         <!-- <article>
@@ -48,7 +32,7 @@
             <p><span>You selected: </span><b>{{selectedRole}}</b></p>
         </article> -->
 
-        <button type="submit" [disabled]="name.invalid || email.invalid || password.invalid || role.invalid" class="btn btn-success">Submit</button>
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>
 <br>

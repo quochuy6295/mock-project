@@ -1,21 +1,21 @@
 <h3>Create Team</h3>
 <div [hidden]="submitted" style="width: 400px;">
 
-    <form novalidate (ngSubmit)="onSubmit()">
-        <div class="form-group">
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="form">
             <label for="name">Team Name</label>
-            <input type="text" class="form-control" id="name" #name="ngModel" [(ngModel)]="team.name" name="name" required>
+            <input type="text" class="form-control" id="name" required [(ngModel)]="team.name" name="name">
         </div>
-        <div class="col alert alert-danger" role="alert" *ngIf="name?.errors?.required && name?.touched">
-            Name is required!
-        </div>
-        <div>
+
+        <div class="form">
             <label for="teamLeadId">Team Lead</label>
-            <input type="text" class="form-control" id="teamLeadId" #teamLeadId="ngModel" required [(ngModel)]="team.teamLeadId" name="teamLeadId">
+            <select class="form-control" id="teamLeadId" name="teamLeadId" [(ngModel)]="team.teamLeadId">
+        <option [ngValue]="null" selected></option>
+        <option [ngValue]="leader.id" *ngFor="let leader of teamLeads">{{ leader.name }}</option>
+      </select>
         </div>
-        <div class="col alert alert-danger" role="alert" *ngIf="teamLeadId?.errors?.required && teamLeadId?.touched">
-            TeamLead is required!
-        </div>
-        <button type="submit" class="btn btn-success" [disabled]="name.invalid || teamLeadId.invalid">Submit</button>
+
+        <button type="submit" class="btn btn-success">Submit</button>
     </form>
 </div>

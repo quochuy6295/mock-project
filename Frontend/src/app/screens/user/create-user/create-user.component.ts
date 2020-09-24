@@ -3,7 +3,7 @@ import { UserService } from '../../../service/user/user.service';
 import { User } from '../../../models/User';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import swal from 'sweetalert2';
+
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
@@ -13,11 +13,9 @@ export class CreateUserComponent implements OnInit {
   user: User = new User();
   submitted = false;
   selectedRole: string = '';
-  isValidFormSubmitted = false;
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
   constructor(private userService: UserService, private router: Router) {}
-  userForm: FormGroup;
+
   ngOnInit(): void {}
 
   newUser(): void {
@@ -25,12 +23,11 @@ export class CreateUserComponent implements OnInit {
     this.user = new User();
   }
 
-
   save() {
     this.userService.createUser(this.user).subscribe(
       (data) => {
         console.log(data);
-        this.user = new User();
+        // this.user = new User();
         this.gotoList();
       },
       (error) => console.log(error)
@@ -40,13 +37,6 @@ export class CreateUserComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     this.save();
-    swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Create User success',
-      showConfirmButton: false,
-      timer: 1500
-    })
   }
 
   gotoList() {
@@ -56,8 +46,4 @@ export class CreateUserComponent implements OnInit {
   selectChangeHandler(event: any) {
     this.selectedRole = event.target.value;
   }
-
-  // resetForm(){
-  //   this.userForm.reset();
-  // }
 }

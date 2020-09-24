@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class TeamService {
   [x: string]: any;
-  private baseTeamsUrl = 'http://localhost:8080/admin/teams';
+  private baseTeamsUrl = 'http://localhost:8080//admin/teams';
 
   constructor(private http: HttpClient) {}
 

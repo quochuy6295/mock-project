@@ -1,15 +1,17 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         <div class="row">
-            <div class="col-md-4">
-                <h2>Student List</h2>
-            </div>
-            <div class=" col-md-4 offset-md-4">
-                <button class="btn btn-success" (click)="importFileStudent()" style="margin-right: 20px">Import File</button>
-            </div>
-            <div>
-                <input type=”text” class="form-control" placeholder="Search here" [(ngModel)]="searchTerm">
-            </div>
+            <h2>Student List</h2>
+        </div>
+        <div class="row p-1">
+            <label class="btn btn-default">
+        <input type="file" (change)="selectFile($event)" />
+      </label>
+            <button class="btn btn-success fa fa-upload" (click)="upload()">Upload File</button>
+            <form class="example" action="/action_page.php" style="margin:auto;max-width:300px">
+                <input type="text" placeholder="Search.." name="search2">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
         </div>
     </div>
     <div class="panel-body">
@@ -18,19 +20,19 @@
                 <tr>
                     <th>TT</th>
                     <th>Full Name</th>
-                    <th>Gender</th>
+                    <th>Source</th>
                     <th>Email</th>
-                    <th>Phone Number</th>
+                    <th>Status</th>
                     <th>Target</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let student of (students | async | studentsFilter:searchTerm)">
+                <tr *ngFor="let student of students | async">
                     <td>{{student.id}}</td>
                     <td>{{student.fullName}}</td>
-                    <td>{{student.gender}}</td>
+                    <td>{{student.source}}</td>
                     <td>{{student.email}}</td>
-                    <td>{{student.phoneNumber}}</td>
+                    <td>{{student.status}}</td>
                     <td>{{student.target}}</td>
                     <td><button (click)="deleteStudent(student.id)" class="btn btn-danger">Delete</button>
                         <button (click)="studentDetails(student.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
